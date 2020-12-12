@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "ReportReaderApp": {
+      "commandName": "Project",
+      "commandLineArgs": "--file test.txt"
+    }
+  }
+}
