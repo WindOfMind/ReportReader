@@ -5,6 +5,10 @@ namespace ReportReader.App
 {
     public class AppOptions
     {
+        private const string ProjectOptionName = "--project";
+        private const string FileOptionName = "--file";
+        private const string SortByStartDateOptionName = "--sortByStartDate";
+
         public string Path { get; protected set; }
 
         public bool SortByStartDate { get; protected set; }
@@ -22,9 +26,9 @@ namespace ReportReader.App
 
             return new AppOptions
             {
-                Path = ReadValue(args, "--file"),
-                SortByStartDate = args.Contains("--sortByStartDate"),
-                ProjectId = ReadValue(args, "--project")
+                Path = ReadValue(args, FileOptionName),
+                SortByStartDate = args.Contains(SortByStartDateOptionName),
+                ProjectId = ReadValue(args, ProjectOptionName)
             };
         }
 
@@ -34,14 +38,9 @@ namespace ReportReader.App
             int valuePosition = namePosition + 1;
             bool valueExists = valuePosition > 0 && valuePosition < args.Length;
 
-            string value = valueExists
+            return valueExists
                 ? args[valuePosition]
                 : string.Empty;
-
-            if (value.StartsWith("--"))
-                return string.Empty;
-
-            return value;
         }
     }
 }

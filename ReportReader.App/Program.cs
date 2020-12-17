@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
+using ReportReader.Domain;
+using ReportReader.Domain.Common;
 
 namespace ReportReader.App
 {
@@ -17,7 +19,7 @@ namespace ReportReader.App
                 return;
             }
 
-            var reportResult = await ReportService.LoadFromFileAsync(options.Path);
+            Result<Report> reportResult = await ReportService.LoadFromFileAsync(options.Path);
             if (!reportResult.IsSuccessful)
             {
                 Console.WriteLine("Error occurred during reading the file.");
@@ -26,7 +28,7 @@ namespace ReportReader.App
                 return;
             }
 
-            var report = reportResult.Value;
+            Report report = reportResult.Value;
 
             if (!string.IsNullOrWhiteSpace(options.ProjectId))
             {

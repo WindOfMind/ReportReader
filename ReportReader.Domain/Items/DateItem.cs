@@ -6,16 +6,19 @@ namespace ReportReader.Domain.Items
 {
     internal class DateItem : Item
     {
+        private readonly string _dateTimeFormat;
+
         public DateTime? Value { get; }
 
-        public DateItem(DateTime? value, Column column) : base(column)
+        public DateItem(DateTime? value, Column column, string dateTimeFormat) : base(column)
         {
+            _dateTimeFormat = dateTimeFormat;
             Value = value;
         }
 
         public override string ToString()
         {
-            return Value?.ToString("yyyy-mm-dd hh:mm:ss.sss", CultureInfo.InvariantCulture) ?? string.Empty;
+            return Value?.ToString(_dateTimeFormat, CultureInfo.InvariantCulture) ?? string.Empty;
         }
     }
 }

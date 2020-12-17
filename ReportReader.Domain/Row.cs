@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using ReportReader.Domain.Columns;
 using ReportReader.Domain.Common;
@@ -25,6 +26,12 @@ namespace ReportReader.Domain
             var values = reportLine.Split(columnSeparator).ToArray();
             var items = new List<Item>(columns.Count);
 
+            if (values.Length != columns.Count)
+            {
+                string error = $"The next line:{Environment.NewLine}{reportLine}{Environment.NewLine}Does not contain all values";
+                return new Result<Row>(error);
+            }
+
             for (int columnNumber = 0; columnNumber < columns.Count; columnNumber++)
             {
                 var column = columns.ElementAt(columnNumber);
@@ -32,7 +39,7 @@ namespace ReportReader.Domain
 
                 if (!result.IsSuccessful)
                 {
-                    string error = $"Error happened in the next line:\n{reportLine}\n{result.Error}";
+                    string error = $"Error happened in the next line:{Environment.NewLine}{reportLine}{Environment.NewLine}{result.Error}";
                     return new Result<Row>(error);
                 }
 
@@ -44,7 +51,7 @@ namespace ReportReader.Domain
 
         public override string ToString()
         {
-            return string.Join(" ", _items);
+            return string.Join(" ", _items.Where(i => !string.IsNullOrEmpty(i.ToString())));
         }
     }
 }

@@ -35,7 +35,7 @@ namespace ReportReader.Domain
                     .Keys
                     .Except(columns.Select(c => c.Name));
 
-                return new Result<Header>($"Columns {string.Join(",", missedColumns)} not found.");
+                return new Result<Header>($"Column(s) {string.Join(", ", missedColumns)} not found");
             }
 
             return new Result<Header>(new Header(columns));

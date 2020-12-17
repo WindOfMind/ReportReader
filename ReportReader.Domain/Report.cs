@@ -46,6 +46,9 @@ namespace ReportReader.Domain
 
         public void FilterByProject(string projectId)
         {
+            if (string.IsNullOrWhiteSpace(projectId))
+                throw new ArgumentException("Project id can be null or empty", nameof(projectId));
+
             Column projectColumn = AllColumns[ProjectColumnName];
 
             _rows = _rows.Where(r => r.GetItemByColumn<StringItem>(projectColumn).Value == projectId)
@@ -80,6 +83,9 @@ namespace ReportReader.Domain
 
         public static Result<Report> FromText(string[] textLines)
         {
+            if (textLines == null)
+                throw new ArgumentNullException(nameof(textLines));
+
             Result<Header> headerResult = ReadHeader(textLines, out int headerPosition);
             if (!headerResult.IsSuccessful)
             {
