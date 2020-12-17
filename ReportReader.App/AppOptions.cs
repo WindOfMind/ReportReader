@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace ReportReaderApp
+namespace ReportReader.App
 {
     public class AppOptions
     {
@@ -30,11 +30,12 @@ namespace ReportReaderApp
 
         private static string ReadValue(string[] args, string name)
         {
-            int position = Array.IndexOf(args, name);
-            bool canReadValue = position + 1 > args.Length - 1;
+            int namePosition = Array.IndexOf(args, name);
+            int valuePosition = namePosition + 1;
+            bool valueExists = valuePosition > 0 && valuePosition < args.Length;
 
-            string value = position >= 0 && canReadValue
-                ? args[position + 1]
+            string value = valueExists
+                ? args[valuePosition]
                 : string.Empty;
 
             if (value.StartsWith("--"))

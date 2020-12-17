@@ -2,7 +2,7 @@
   "profiles": {
     "ReportReaderApp": {
       "commandName": "Project",
-      "commandLineArgs": "--file test.txt"
+      "commandLineArgs": "--file ExampleData.tsv"
     }
   }
 }
