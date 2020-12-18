@@ -17,10 +17,9 @@ namespace ReportReader.Domain.Columns
         {
             if (IsNullValue(value) && AllowNullValues)
             {
-                new Result<Item>(new DateItem(null, this, DateTimeFormat));
+                return new Result<Item>(new DateItem(null, this, DateTimeFormat));
             }
 
-            //if (!DateTime.TryParse(value, out DateTime dateTime))
             if (!DateTime.TryParseExact(value, DateTimeFormat, CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime dateTime))
             {
                 return new Result<Item>($"Failed to parse date {value}");
