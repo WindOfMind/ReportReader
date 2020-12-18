@@ -14,7 +14,7 @@ namespace ReportReader.App
             if (string.IsNullOrEmpty(options.Path))
             {
                 Console.WriteLine("Please specify a path for reading a file.");
-                Console.WriteLine("Usage: ReportReaderApp --file <path>");
+                Console.WriteLine("Usage: ReportReader.App.exe --file <path>");
 
                 return;
             }
