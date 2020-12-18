@@ -44,6 +44,12 @@ namespace ReportReader.Domain
             _rows = rows?.ToList() ?? throw new ArgumentNullException(nameof(rows));
         }
 
+        /// <summary>
+        /// Filter report rows by specified project column value.
+        /// It removes all rows that have a different project value.
+        /// </summary>
+        /// <param name="projectId">Project value for filtering</param>
+        /// <exception cref="ArgumentException">Thrown if projectId is null or empty</exception>
         public void FilterByProject(string projectId)
         {
             if (string.IsNullOrWhiteSpace(projectId))
@@ -55,6 +61,9 @@ namespace ReportReader.Domain
                 .ToList();
         }
 
+        /// <summary>
+        /// Sort report rows by start date column values in ascending order.
+        /// </summary>
         public void SortByStartDateAsc()
         {
             var startDateColumn = AllColumns[StartDateColumnName];
@@ -81,6 +90,11 @@ namespace ReportReader.Domain
             return sb.ToString();
         }
 
+        /// <summary>
+        /// Create a report from a string array.
+        /// </summary>
+        /// <exception cref="ArgumentNullException">Thrown if textLines is null</exception>
+        /// <returns>Result of the report creation</returns>
         public static Result<Report> FromText(string[] textLines)
         {
             if (textLines == null)
