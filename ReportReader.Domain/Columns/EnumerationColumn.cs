@@ -26,7 +26,7 @@ namespace ReportReader.Domain.Columns
 
             if (enumerationValue is null)
             {
-                return new Result<Item>($"Failed to parse enumeration value {value}.");
+                return new Result<Item>($"Failed to parse enumeration value {value} in the column {Name}");
             }
 
             return new Result<Item>(new EnumerationItem(enumerationValue, this));

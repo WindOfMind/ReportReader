@@ -22,7 +22,7 @@ namespace ReportReader.Domain.Columns
 
             if (!DateTime.TryParseExact(value, DateTimeFormat, CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime dateTime))
             {
-                return new Result<Item>($"Failed to parse date {value}");
+                return new Result<Item>($"Failed to parse date {value} in the column {Name}");
             }
 
             return new Result<Item>(new DateItem(dateTime, this, DateTimeFormat));

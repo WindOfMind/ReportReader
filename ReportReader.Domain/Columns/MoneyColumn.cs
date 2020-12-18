@@ -18,7 +18,7 @@ namespace ReportReader.Domain.Columns
 
             if (!decimal.TryParse(value, out decimal money))
             {
-                return new Result<Item>($"Failed to parse money value {value}");
+                return new Result<Item>($"Failed to parse money value {value} in the column {Name}");
             }
 
             return new Result<Item>(new MoneyItem(money, this));
