@@ -7,12 +7,12 @@ namespace ReportReader.Domain.Items
     {
         private readonly decimal? _value;
 
-        public decimal? Value => _value;
-
         public MoneyItem(decimal? value, Column column) : base(column)
         {
             _value = value;
         }
+
+        public decimal? Value => _value;
 
         public override string ToString()
         {

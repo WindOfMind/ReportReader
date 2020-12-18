@@ -8,13 +8,13 @@ namespace ReportReader.Domain.Columns
         protected const string NullValue = "NULL";
         protected readonly bool AllowNullValues;
 
-        public string Name { get; protected set; }
-
         protected Column(string name, bool allowNullValues)
         {
             Name = name;
             AllowNullValues = allowNullValues;
         }
+
+        public string Name { get; protected set; }
 
         public abstract Result<Item> Parse(string value);
 
@@ -23,6 +23,6 @@ namespace ReportReader.Domain.Columns
             return Name;
         }
 
-        protected bool IsNullValue(string value) => value == "NULL";
+        protected bool IsNullValue(string value) => value == NullValue;
     }
 }

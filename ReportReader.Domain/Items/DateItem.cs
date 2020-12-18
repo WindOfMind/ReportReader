@@ -8,13 +8,13 @@ namespace ReportReader.Domain.Items
     {
         private readonly string _dateTimeFormat;
 
-        public DateTime? Value { get; }
-
         public DateItem(DateTime? value, Column column, string dateTimeFormat) : base(column)
         {
             _dateTimeFormat = dateTimeFormat;
             Value = value;
         }
+
+        public DateTime? Value { get; }
 
         public override string ToString()
         {

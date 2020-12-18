@@ -9,12 +9,12 @@ namespace ReportReader.Domain
     {
         private readonly List<Column> _columns;
 
-        public IReadOnlyCollection<Column> Columns => _columns;
-
         protected Header(IEnumerable<Column> columns)
         {
             _columns = columns.ToList();
         }
+
+        public IReadOnlyCollection<Column> Columns => _columns;
 
         public static Result<Header> FromString(string headerString, Dictionary<string, Column> allColumns, char columnSeparator)
         {

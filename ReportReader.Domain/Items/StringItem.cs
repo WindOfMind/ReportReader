@@ -6,12 +6,12 @@ namespace ReportReader.Domain.Items
     {
         private readonly string _value;
 
-        public string Value => _value;
-
         public StringItem(string value, Column column) : base(column)
         {
             _value = value;
         }
+
+        public string Value => _value;
 
         public override string ToString()
         {

@@ -2,12 +2,6 @@
 {
     public class Result<T>
     {
-        public bool IsSuccessful { get; }
-
-        public T Value { get; }
-
-        public string Error { get; } = string.Empty;
-
         public Result(T value)
         {
             Value = value;
@@ -19,5 +13,11 @@
             Error = error;
             IsSuccessful = false;
         }
+
+        public bool IsSuccessful { get; }
+
+        public T Value { get; }
+
+        public string Error { get; } = string.Empty;
     }
 }

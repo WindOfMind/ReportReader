@@ -4,12 +4,12 @@ namespace ReportReader.Domain.Items
 {
     internal abstract class Item
     {
-        public Column Column { get; }
-
         protected Item(Column column)
         {
             Column = column;
         }
+
+        public Column Column { get; }
 
         public abstract override string ToString();
     }
