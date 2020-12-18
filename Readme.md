@@ -49,7 +49,7 @@ Notes:
 - Money (Savings amount) values should be numbers with a point as the decimal separator.
 - Column "Complexity" has a certain set of values (`Simple, Moderate, Hazardous`).
 - Lines that are empty or start with comment mark # are skipped.
-- all column names and `NULL` symbol are __case sensitive__.
+- All column names and `NULL` symbol are __case sensitive__.
 
 ## How to run unit tests
 
