@@ -20,7 +20,7 @@ namespace ReportReader.Domain.Columns
             {
                 return AllowNullValues
                     ? new Result<Item>(new StringItem(string.Empty, this))
-                    : new Result<Item>($"Value can not be NULL for column {Name} in the column {Name}");
+                    : new Result<Item>($"Value can not be NULL for column {Name}");
             }
 
             return new Result<Item>(new StringItem(value, this));
