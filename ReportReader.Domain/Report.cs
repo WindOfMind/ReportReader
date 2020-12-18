@@ -61,8 +61,8 @@ namespace ReportReader.Domain
 
             _rows.Sort((row1, row2) =>
             {
-                var date1 = row1.GetItemByColumn<DateItem>(startDateColumn).Value;
-                var date2 = row2.GetItemByColumn<DateItem>(startDateColumn).Value;
+                DateTime? date1 = row1.GetItemByColumn<DateItem>(startDateColumn).Value;
+                DateTime? date2 = row2.GetItemByColumn<DateItem>(startDateColumn).Value;
 
                 return Nullable.Compare(date1, date2);
             });
