@@ -48,8 +48,9 @@ Notes:
 - Dates (Start date) should conform to the format `yyyy-mm-dd hh:mm:ss.sss`.
 - Money (Savings amount) values should be numbers with a point as the decimal separator.
 - Column "Complexity" has a certain set of values (`Simple, Moderate, Hazardous`).
+- Column "Currency" has a certain set of values (`EUR`).
 - Lines that are empty or start with comment mark # are skipped.
-- All column names and `NULL` symbol are __case sensitive__.
+- All column names, columns with set of values and `NULL` symbol are __case sensitive__.
 
 ## How to run unit tests
 

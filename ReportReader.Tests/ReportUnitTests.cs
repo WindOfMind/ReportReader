@@ -123,6 +123,14 @@ namespace ReportReader.Tests
                 },
                 new object[]
                 {
+                    // Wrong currency format
+                    new [] { "Project	Description	Start date	Category	Responsible	Savings amount	Currency	Complexity",
+                        "2	Harmonize Lactobacillus acidophilus sourcing	2014-01-01 00:00:00.000	Dairy	Daisy Milks	11689.322459	dollar	Super Simple"},
+
+                    "Failed to parse enumeration value dollar"
+                },
+                new object[]
+                {
                     // Missed value
                     new [] { "Project	Description	Start date	Category	Responsible	Savings amount	Currency	Complexity",
                         "2	2014-01-01 00:00:00.000	Dairy	Daisy Milks	11689.322459	EUR	Simple"},
