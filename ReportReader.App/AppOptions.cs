@@ -9,15 +9,15 @@ namespace ReportReader.App
         private const string FileOptionName = "--file";
         private const string SortByStartDateOptionName = "--sortByStartDate";
 
+        private AppOptions()
+        {
+        }
+
         public string Path { get; protected set; }
 
         public bool SortByStartDate { get; protected set; }
 
         public string ProjectId { get; protected set; }
-
-        private AppOptions()
-        {
-        }
 
         public static AppOptions FromArguments(string[] args)
         {
