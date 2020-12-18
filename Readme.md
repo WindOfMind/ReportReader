@@ -43,12 +43,13 @@ Input data is tab-separated UTF-8 text with a specified header row (as in the ex
 | 1       | Description 1 | 2014-01-01 00:00:00.000 |  Category1   | Person1     |	NULL          |	NULL       | Simple     |
 | 2       | Description 2 | 2013-01-01 00:00:00.000 |  Category2   | Person2     | 141415.942696  |	EUR        | Moderate   |
 
-Columns "Savings amount" and "Currency" can have missing values denoted as `NULL`.
-Dates (Start date) should conform to the format `yyyy-mm-dd hh:mm:ss.sss`.
-Money (Savings amount) values should be numbers with a point as the decimal separator.
-Column "Complexity" has a certain set of values (`Simple, Moderate, Hazardous`).
-
-All column names and `NULL` symbol are __case sensitive__.
+Notes:
+- Columns "Savings amount" and "Currency" can have missing values denoted as `NULL`.
+- Dates (Start date) should conform to the format `yyyy-mm-dd hh:mm:ss.sss`.
+- Money (Savings amount) values should be numbers with a point as the decimal separator.
+- Column "Complexity" has a certain set of values (`Simple, Moderate, Hazardous`).
+- Lines that are empty or start with comment mark # are skipped.
+- all column names and `NULL` symbol are __case sensitive__.
 
 ## How to run unit tests
 
