@@ -5,18 +5,16 @@ namespace ReportReader.Domain.Items
 {
     internal class MoneyItem : Item
     {
-        private readonly decimal? _value;
-
         public MoneyItem(decimal? value, Column column) : base(column)
         {
-            _value = value;
+            Value = value;
         }
 
-        public decimal? Value => _value;
+        public decimal? Value { get; }
 
         public override string ToString()
         {
-            return _value?.ToString(CultureInfo.InvariantCulture) ?? string.Empty;
+            return Value?.ToString(CultureInfo.InvariantCulture) ?? string.Empty;
         }
     }
 }

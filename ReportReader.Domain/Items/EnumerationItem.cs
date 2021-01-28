@@ -5,18 +5,16 @@ namespace ReportReader.Domain.Items
 {
     internal class EnumerationItem : Item
     {
-        private readonly Enumeration _value;
-
         public EnumerationItem(Enumeration value, Column column) : base(column)
         {
-            _value = value;
+            Value = value;
         }
 
-        public Enumeration Value => _value;
+        public Enumeration Value { get; }
 
         public override string ToString()
         {
-            return _value?.ToString() ?? string.Empty;
+            return Value?.ToString() ?? string.Empty;
         }
     }
 }

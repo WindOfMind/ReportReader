@@ -4,18 +4,16 @@ namespace ReportReader.Domain.Items
 {
     internal class StringItem : Item
     {
-        private readonly string _value;
-
         public StringItem(string value, Column column) : base(column)
         {
-            _value = value;
+            Value = value;
         }
 
-        public string Value => _value;
+        public string Value { get; }
 
         public override string ToString()
         {
-            return _value;
+            return Value;
         }
     }
 }
