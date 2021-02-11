@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using ReportReader.Domain.Columns;
 using ReportReader.Domain.Common;
 using ReportReader.Domain.Enumerations;
 using ReportReader.Domain.Items;
+
+[assembly: InternalsVisibleTo("ReportReader.Tests")]
 
 namespace ReportReader.Domain
 {

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using ReportReader.Domain.Columns;
 using ReportReader.Domain.Common;
@@ -9,7 +10,7 @@ namespace ReportReader.Domain
     {
         private readonly List<Column> _columns;
 
-        protected Header(IEnumerable<Column> columns)
+        private Header(IEnumerable<Column> columns)
         {
             _columns = columns.ToList();
         }
@@ -18,6 +19,12 @@ namespace ReportReader.Domain
 
         public static Result<Header> FromString(string headerString, Dictionary<string, Column> allColumns, char columnSeparator)
         {
+            if (headerString == null)
+                throw new ArgumentNullException(nameof(headerString));
+
+            if (allColumns == null)
+                throw new ArgumentNullException(nameof(allColumns));
+
             string[] columnNames = headerString.Split(columnSeparator);
             List<Column> columns = new List<Column>();
 

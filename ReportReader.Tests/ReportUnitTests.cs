@@ -9,7 +9,7 @@ namespace ReportReader.Tests
 {
     public class ReportUnitTests
     {
-        public static IEnumerable<object[]> ValidTestData =>
+        public static IEnumerable<object[]> TestData =>
             new List<object[]>
             {
                 new object[]
@@ -25,24 +25,6 @@ namespace ReportReader.Tests
                 },
                 new object[]
                 {
-                    // Different header order
-                    new [] { "Project	Responsible	Description	Complexity	Start date	Category	Savings amount	Currency",
-                        "2	Daisy Milks	Harmonize Lactobacillus acidophilus sourcing	Simple	2014-01-01 00:00:00.000	Dairy	11689.322459	EUR" },
-
-                    $"Project Responsible Description Complexity Start date Category Savings amount Currency{Environment.NewLine}" +
-                    $"2 Daisy Milks Harmonize Lactobacillus acidophilus sourcing Simple 2014-01-01 00:00:00.000 Dairy 11689.322459 EUR{Environment.NewLine}"
-                },
-                new object[]
-                {
-                    // With NULL
-                    new [] { "Project	Description	Start date	Category	Responsible	Savings amount	Currency	Complexity",
-                        "2	Harmonize Lactobacillus acidophilus sourcing	2014-01-01 00:00:00.000	Dairy	Daisy Milks	NULL	NULL	Simple" },
-
-                    $"Project Description Start date Category Responsible Savings amount Currency Complexity{Environment.NewLine}" +
-                    $"2 Harmonize Lactobacillus acidophilus sourcing 2014-01-01 00:00:00.000 Dairy Daisy Milks Simple{Environment.NewLine}"
-                },
-                new object[]
-                {
                     // With comments
                     new [] { "# This is comment",
                         "Project	Description	Start date	Category	Responsible	Savings amount	Currency	Complexity",
@@ -55,7 +37,7 @@ namespace ReportReader.Tests
                 },
                 new object[]
                 {
-                    // With empty line
+                    // With empty lines
                     new [] { " ", "Project	Description	Start date	Category	Responsible	Savings amount	Currency	Complexity", " ",
                         "2	Harmonize Lactobacillus acidophilus sourcing	2014-01-01 00:00:00.000	Dairy	Daisy Milks	11689.322459	EUR	Simple" },
 
@@ -64,90 +46,15 @@ namespace ReportReader.Tests
                 },
                 new object[]
                 {
-                    // With empty line
+                    // With empty body
                     new [] { "Project	Description	Start date	Category	Responsible	Savings amount	Currency	Complexity"},
 
                     $"Project Description Start date Category Responsible Savings amount Currency Complexity{Environment.NewLine}"
                 }
             };
 
-        public static IEnumerable<object[]> InvalidTestData =>
-            new List<object[]>
-            {
-                new object[]
-                {
-                    // With NULL value in non-nullable column
-                    new [] { "Project	Description	Start date	Category	Responsible	Savings amount	Currency	Complexity",
-                        "2	Harmonize Lactobacillus acidophilus sourcing	2014-01-01 00:00:00.000	Dairy	NULL	NULL	NULL	Simple"},
-
-                    "Value can not be NULL for column Responsible"
-                },
-                new object[]
-                {
-                    // Not all columns in a header
-                    new [] { "Project	Description	Start date	Category	Responsible	Savings amount	Currency",
-                        "2	Harmonize Lactobacillus acidophilus sourcing	2014-01-01 00:00:00.000	Dairy	NULL	NULL	NULL	Simple"},
-
-                    "Column(s) Complexity not found"
-                },
-                new object[]
-                {
-                    // No header
-                    new [] {"2	Harmonize Lactobacillus acidophilus sourcing	2014-01-01 00:00:00.000	Dairy	NULL	NULL	NULL	Simple"},
-
-                    "Column(s) Project, Description, Start date, Category, Responsible, Savings amount, Currency, Complexity not found"
-                },
-                new object[]
-                {
-                    // Wrong date format
-                    new [] { "Project	Description	Start date	Category	Responsible	Savings amount	Currency	Complexity",
-                        "2	Harmonize Lactobacillus acidophilus sourcing	2014/01/01 00:00:00.000	Dairy	Daisy Milks	11689.322459	EUR	Simple"},
-
-                    "Failed to parse date 2014/01/01 00:00:00.000"
-                },
-                new object[]
-                {
-                    // Wrong decimal format
-                    new [] { "Project	Description	Start date	Category	Responsible	Savings amount	Currency	Complexity",
-                        "2	Harmonize Lactobacillus acidophilus sourcing	2014-01-01 00:00:00.000	Dairy	Daisy Milks	money	EUR	Simple"},
-
-                    "Failed to parse money value money"
-                },
-                new object[]
-                {
-                    // Wrong complexity format
-                    new [] { "Project	Description	Start date	Category	Responsible	Savings amount	Currency	Complexity",
-                        "2	Harmonize Lactobacillus acidophilus sourcing	2014-01-01 00:00:00.000	Dairy	Daisy Milks	11689.322459	EUR	Super Simple"},
-
-                    "Failed to parse enumeration value Super Simple"
-                },
-                new object[]
-                {
-                    // Wrong currency format
-                    new [] { "Project	Description	Start date	Category	Responsible	Savings amount	Currency	Complexity",
-                        "2	Harmonize Lactobacillus acidophilus sourcing	2014-01-01 00:00:00.000	Dairy	Daisy Milks	11689.322459	dollar	Super Simple"},
-
-                    "Failed to parse enumeration value dollar"
-                },
-                new object[]
-                {
-                    // Missed value
-                    new [] { "Project	Description	Start date	Category	Responsible	Savings amount	Currency	Complexity",
-                        "2	2014-01-01 00:00:00.000	Dairy	Daisy Milks	11689.322459	EUR	Simple"},
-
-                    "Does not contain all values"
-                },
-                new object[]
-                {
-                    // Empty array
-                    new string[] { },
-
-                    "Failed to read a header"
-                },
-            };
-
         [Theory]
-        [MemberData(nameof(ValidTestData))]
+        [MemberData(nameof(TestData))]
         public void ToString_ValidInput_ShouldReturnString(string[] text, string expected)
         {
             // Act
@@ -158,16 +65,14 @@ namespace ReportReader.Tests
             reportResult.Value.ToString().Should().Be(expected);
         }
 
-        [Theory]
-        [MemberData(nameof(InvalidTestData))]
-        public void FromText_InvalidInput_ShouldReturnUnsuccessful(string[] text, string error)
+        [Fact]
+        public void FromText_Null_ShouldThrow()
         {
             // Act
-            Result<Report> reportResult = Report.FromText(text);
+            Action action = () => Report.FromText(null);
 
             // Assert
-            reportResult.IsSuccessful.Should().BeFalse();
-            reportResult.Error.Should().Contain(error);
+            action.Should().Throw<ArgumentNullException>();
         }
 
         [Fact]

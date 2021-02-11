@@ -23,6 +23,9 @@ namespace ReportReader.Domain
 
         public static Result<Row> FromLine(string reportLine, IReadOnlyCollection<Column> columns, char columnSeparator)
         {
+            if (string.IsNullOrWhiteSpace(reportLine))
+                throw new ArgumentNullException(nameof(reportLine));
+
             var values = reportLine.Split(columnSeparator).ToArray();
             var items = new List<Item>(columns.Count);
 
